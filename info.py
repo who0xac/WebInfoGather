@@ -48,7 +48,7 @@ def portScan(domain):
         ip = socket.gethostbyname(domain)
         open_ports = []
 
-        top_ports = [21, 22, 23, 25, 53, 80, 110, 135, 139, 143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8080, 8443]  
+        top_ports = [21, 22, 23, 25, 53, 80, 110, 443, 445, 3389]  
         for port in top_ports:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             socket.setdefaulttimeout(1)
@@ -71,6 +71,21 @@ def portScan(domain):
     except socket.error:
         print("\nServer not responding !!!")
 
+# find robot.txt 
+def find_robottxt(domain):
+    url=f"http://{domain}/robots.txt"
+    try:
+        r=requests.get(url)
+        if r.status_code==200:
+            print("Robots.txt found: " + r.text)
+        else:
+            print("Robots.txt not found.")    
+    except Exception as e:
+        print("Error fetching robots.txt:", e)
+
+# finding CMS 
+# def findCMS(domain):
+
 
 print("[+] Finding IP...")
 getIP(domain)
@@ -88,3 +103,8 @@ print("[+] Finding Port Scan...")
 print("Port scanning is starting...")
 portScan(domain)
 print("Port scanning is complete. \n\n")
+
+print("[+] Finding Robots.txt...")
+find_robottxt(domain)
+print("Process Completed \n\n")
+
