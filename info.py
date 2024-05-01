@@ -2,6 +2,9 @@ import socket
 import requests
 import whois
 
+
+
+
 print("Example: google.com")
 domain = input("Enter a Domain Name: ")
 print("\n\n")
@@ -116,7 +119,46 @@ def findCMS(domain):
     except Exception as e:
          print("Error: Unable to fetch website content", e)
  
-            
+#finding subdomains     
+def findSubdomains(domain, wordlist, outputfile):
+    try:    
+        foundsubs = []
+        with open(wordlist, 'r') as file:
+            subdomains_to_check = [line.strip() for line in file]
+
+        with open(outputfile, 'w') as out_file:  # Open the output file for writing
+            for subdomain in subdomains_to_check:
+                url = f"http://{subdomain}.{domain}"
+                try:
+                    response = requests.get(url)
+                    if response.status_code == 200:
+                        print(url)
+                        out_file.write(url + '\n')  # Write to the output file
+                        foundsubs.append(url)            
+                except requests.ConnectionError:
+                    continue
+    except Exception as e:
+        print("Unable to Resolve Subdomains:", e)          
+
+#finding Vulnerablity
+def checkVulnearblity(urls_file):
+    def check_xss(url):
+        payload = "<script>alert('XSS')</script>"
+        response = requests.get(url, params={"input": payload})
+        if payload in response.text:
+            print(f"XSS vulnerability found in URL: {url}")
+        else:
+            print(f"No XSS vulnerability found in URL: {url}")
+
+    print("Subdomain Enumeration is starting...")
+
+    
+    with open(urls_file, 'r') as file:
+        for url in file:
+            url = url.strip()  
+            print(f"Checking URL: {url}")
+            check_xss(url)
+
 
 print("[+] Finding IP...")
 getIP(domain)
@@ -130,6 +172,10 @@ print("[+] Finding Whois Info... ")
 getWHOISInfo(domain)
 print("WHOIS Found. \n\n")
 
+print("[+] Content Management System(CMS)...")
+findCMS(domain)
+print("Process Completed \n\n")
+
 print("[+] Finding Port Scan...")
 print("Port scanning is starting...")
 portScan(domain)
@@ -139,6 +185,15 @@ print("[+] Finding Robots.txt...")
 find_robottxt(domain)
 print("Process Completed \n\n")
 
-print("[+] Content Management System(CMS)...")
-findCMS(domain)
+print("[+] Finding Subdomains...")
+print("Subdomain Enumeration is starting...")
+wordlist="wordlist.txt"
+subdomains="subdomains.txt"
+findSubdomains(domain,wordlist,subdomains)
 print("Process Completed \n\n")
+
+print("[+] Checking Vulnerablity...")
+checkVulnearblity(subdomains)
+print("\n")
+print("Web Enumeration is complete.\n")
+print("Happy Hacking :) \n")
