@@ -84,8 +84,39 @@ def find_robottxt(domain):
         print("Error fetching robots.txt:", e)
 
 # finding CMS 
-# def findCMS(domain):
-
+def findCMS(domain):
+    try:
+        r = requests.get("http://" + domain)  
+        if r.status_code == 200:
+            html_content = r.text
+            if 'wp-content' in html_content:
+                print("WordPress detected.")
+            elif 'Joomla' in html_content:
+                print("Joomla detected.")
+            elif 'Drupal' in html_content:
+                print("Drupal detected.")
+            elif 'Magento' in html_content:
+                print("Magento detected.")
+            elif 'Shopify' in html_content:
+                print("Shopify detected.")
+            elif 'Squarespace' in html_content:
+                print("Squarespace detected.")
+            elif 'Wix' in html_content:
+                print("Wix detected.")
+            elif 'Blogger' in html_content:
+                print("Blogger detected.")
+            elif 'TYPO3' in html_content:
+                print("TYPO3 detected.")
+            elif 'PrestaShop' in html_content:
+                print("PrestaShop detected.")
+            else:
+                print("CMS not detected.")
+        else:
+            print("Error: Unable to fetch website content.")
+    except Exception as e:
+         print("Error: Unable to fetch website content", e)
+ 
+            
 
 print("[+] Finding IP...")
 getIP(domain)
@@ -108,3 +139,6 @@ print("[+] Finding Robots.txt...")
 find_robottxt(domain)
 print("Process Completed \n\n")
 
+print("[+] Content Management System(CMS)...")
+findCMS(domain)
+print("Process Completed \n\n")
