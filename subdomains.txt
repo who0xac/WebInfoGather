@@ -1,9 +1,1 @@
-http://www.lenskart.com
-http://s.lenskart.com
-http://portal.lenskart.com
-http://store.lenskart.com
-http://careers.lenskart.com
-http://survey.lenskart.com
-http://ca.lenskart.com
-http://au.lenskart.com
-http://eu.lenskart.com
+
