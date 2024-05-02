@@ -2,9 +2,6 @@ import socket
 import requests
 import whois
 
-
-
-
 print("Example: google.com")
 domain = input("Enter a Domain Name: ")
 print("\n\n")
@@ -38,6 +35,7 @@ def getWHOISInfo(domain):
         whois_result += "| Registrar: {}\n".format(py.registrar)
         whois_result += "| Creation Date: {}\n".format(py.creation_date)
         whois_result += "| Expiry Date: {}\n".format(py.expiration_date)
+        whois_result += "| Country: {}\n".format(py.country)
         whois_result += "| Registrant: {}\n".format(py.registrant)
         whois_result += "| Registrant Country: {}\n".format(py.registrant_country)
         print(whois_result)
