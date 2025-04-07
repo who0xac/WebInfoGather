@@ -28,7 +28,7 @@ This Python-based offensive security tool performs comprehensive web enumeration
 ### Deployment
 ```bash
 # Clone the repository
-git clone https://github.com/GarudaR007X/WebInfoGather.git
+git clone https://github.com/who0xac/WebInfoGather.git
 
 # Navigate to directory
 cd WebInfoGather
@@ -140,9 +140,9 @@ Security researchers are encouraged to contribute to this offensive security too
 
 ## 📞 CONTACT
 
-GarudaR007X - [GitHub Profile](https://github.com/GarudaR007X)
+who0xac - [GitHub Profile](https://github.com/who0xac)
 
-Project Repository: [https://github.com/GarudaR007X/WebInfoGather](https://github.com/GarudaR007X/WebInfoGather)
+Project Repository: [https://github.com/who0xac/WebInfoGather](https://github.com/who0xac/WebInfoGather)
 
 ---
 
